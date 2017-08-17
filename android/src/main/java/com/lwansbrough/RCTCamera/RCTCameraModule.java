@@ -681,6 +681,7 @@ public class RCTCameraModule extends ReactContextBaseJavaModule
             Log.e(TAG, "Unsupported media type:" + type);
             return null;
         }
+        // End of ignore
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             return getOutputFile(
