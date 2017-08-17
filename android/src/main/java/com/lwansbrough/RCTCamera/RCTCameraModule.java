@@ -712,10 +712,35 @@ public class RCTCameraModule extends ReactContextBaseJavaModule
 
     private File getOutputFile(int type, File storageDir) {
         // Create the storage directory if it does not exist
+
+        String NOMEDIA=".nomedia";
+
         if (!storageDir.exists()) {
             if (!storageDir.mkdirs()) {
                 Log.e(TAG, "failed to create directory:" + storageDir.getAbsolutePath());
                 return null;
+            } else {
+                // Folder created Successfully, Create nomedia file entry
+                File noMediaFile = new File(storageDir + "/" + NOMEDIA);
+                if (!noMediaFile.exists()) {
+                    try {
+                        boolean newFile = noMediaFile.createNewFile();
+                        Log.i(TAG, ".no media File creation: " + newFile);
+                    } catch (IOException e) {
+                        Log.e(TAG, "failed to create File:" + e.toString());
+                    }
+                }
+            }
+        } else {
+            // Folder already Exists, Check if nomedia also Exists
+            File noMediaFile = new File(storageDir + "/" + NOMEDIA);
+            if (!noMediaFile.exists()) {
+                try {
+                    boolean newFile = noMediaFile.createNewFile();
+                    Log.i(TAG, ".no media File creation: " + newFile);
+                } catch (IOException e) {
+                    Log.e(TAG, "failed to create File:" + e.toString());
+                }
             }
         }
 
